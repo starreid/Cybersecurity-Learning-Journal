@@ -61,8 +61,11 @@ Performs the main Man-in-the-Middle (MITM) attack:
 
 ```bash
 sudo tshark -r /tmp/arp-spoof.pcapng -Y "arp" | head -10
-```
 
+```bash
+sudo tshark -r arp-spoof.pcapng -Y "arp" | grep "192.168.1.138"
+```
+![ARP packet analysis](images/tshark_output_get138.png)
 **What it does:**
 Reads the `.pcapng` file generated in the previous step, filters only **ARP** protocol packets, and displays the first 10 lines. This step confirms that the network is exchanging ARP messages (Requests, Replies, Gratuitous ARP) between devices.
 
