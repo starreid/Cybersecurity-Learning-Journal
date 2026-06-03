@@ -66,6 +66,8 @@ sudo tshark -r /tmp/arp-spoof.pcapng -Y "arp" | head -10
 sudo tshark -r arp-spoof.pcapng -Y "arp" | grep "192.168.1.138"
 ```
 ![ARP packet analysis](images/tshark_output_get138.png)
+The image shows a snippet of the `tshark` output filtered for ARP packets and highlights entries related to IP `192.168.1.138`. The command uses `-Y "arp"` to filter only ARP traffic and `grep "192.168.1.138"` to quickly locate target responses, showing how the Kali machine sent forged ARP packets.
+
 **What it does:**
 Reads the `.pcapng` file generated in the previous step, filters only **ARP** protocol packets, and displays the first 10 lines. This step confirms that the network is exchanging ARP messages (Requests, Replies, Gratuitous ARP) between devices.
 
