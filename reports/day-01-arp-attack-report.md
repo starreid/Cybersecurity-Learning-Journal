@@ -45,7 +45,7 @@ Sends 4 ICMP (Ping) packets to IP `192.168.1.178` (the Kali machine's IP). This 
 ```bash
 sudo bettercap -eval "set targets 192.168.1.138; arp.spoof on; net.sniff on"
 ```
-![ARP poison MITM](arp_poison_MITM.png)
+![ARP poison MITM](images/arp_poison_MITM.png)
 
 **What it does:**
 Performs the main Man-in-the-Middle (MITM) attack:
@@ -72,7 +72,7 @@ Reads the `.pcapng` file generated in the previous step, filters only **ARP** pr
 - The attacker was able to position itself between the victim and other network devices, allowing victim traffic to be redirected through the attacker's machine.
 - This behavior enabled a Man-in-the-Middle (MITM) attack.
 
-![ARP packet analysis](tshark_output.png)
+![ARP packet analysis](images/tshark_output.png)
 
 ---
 
