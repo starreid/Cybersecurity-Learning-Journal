@@ -1,12 +1,9 @@
 ## Day 01: ARP Spoofing & Sniffing
 
 **Environment:**
-
 - Attacker: Kali Linux
 - Target: Metasploitable (IP `192.168.1.138`)
 - Gateway: `192.168.1.1`
-
-![ARP Spoofing Capture](images/arp-spoof.png)
 
 ---
 
@@ -15,15 +12,14 @@
 **Command:**
 
 ```bash
-sudo bettercap -eval "set targets 192.168.1.138; arp.spoof on; net.sniff on"
-```
+sudo tshark -i eth0 -w arp-spoof.pcapng```
 
 **What it does:**
-Uses Bettercap to perform ARP spoofing and capture traffic from the target. Kali positions itself as the Man-in-the-Middle and records packets passing through the attacker machine.
+Starts capturing all packets passing through the `eth0` interface and saves them to the file `arp-spoof.pcapng`. This allows for later forensic analysis of the traffic.
 
 ---
 
-## 2. Review and Save Output with tshark
+## 2. Initial Analysis of ARP Packets
 
 **Command:**
 
@@ -32,7 +28,7 @@ sudo tshark -r /tmp/arp-spoof.pcapng -Y "arp" | head -10
 ```
 
 **What it does:**
-Reads the capture file, filters ARP packets, and displays the first 10 lines. This verifies the ARP traffic seen during the attack and allows the output to be redirected into a file for saved analysis.
+Reads the `.pcapng` file generated in the previous step, filters only **ARP** protocol packets, and displays the first 10 lines. This step confirms that the network is exchanging ARP messages (Requests, Replies, Gratuitous ARP) between devices.
 
 ---
 
@@ -71,8 +67,6 @@ Performs the main Man-in-the-Middle (MITM) attack:
 ## Final Result
 
 Bettercap ran in interactive mode and displayed detailed logs of intercepted traffic, including `DNS`, `HTTP`, and `Spotify` connections. This proves the attack was successful and that the target's network traffic was being intercepted and analyzed.
-
-
 
 
 
