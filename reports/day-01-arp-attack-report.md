@@ -70,6 +70,8 @@ sudo tshark -r arp-spoof.pcapng -Y "arp" | grep "192.168.1.138"
 
 The image shows a snippet of the `tshark` output filtered for ARP packets and highlights entries related to IP `192.168.1.138`. The command uses `-Y "arp"` to filter only ARP traffic and `grep "192.168.1.138"` to quickly locate target responses, showing how the Kali machine sent forged ARP packets.
 
+In the capture, we observed Bettercap’s discovery phase: Kali (`192.168.1.137`) queries for the target (`192.168.1.138`), and Metasploitable replies with its real MAC address. The `arp.spoof` module was activated and logged `arp spoofer started, probing 1 targets`. Later ARP poisoning packets may not be recorded in this capture due to tshark timing or buffer behavior. Still, Bettercap confirmed that the target was detected and spoofing started successfully, which was later verified by the ability to intercept traffic during the SSH session.
+
 **What it does:**
 Reads the `.pcapng` file generated in the previous step, filters only **ARP** protocol packets, and displays the first 10 lines. This step confirms that the network is exchanging ARP messages (Requests, Replies, Gratuitous ARP) between devices.
 
